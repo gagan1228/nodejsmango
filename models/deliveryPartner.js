@@ -117,7 +117,7 @@ DeliveryPartnerSchema.methods.createPasswordResetToken=function()
     this.passwordResetExpires=Date.now()+10*60*1000
     return resetToken
 }
-DeliveryPartnerSchema.plugin(require('mongoose-autopopulate'))
+
 
 const DeliveryPartner=mongoose.model('DeliveryPartner',DeliveryPartnerSchema)
 module.exports=DeliveryPartner

@@ -961,30 +961,10 @@ exports.verifyotpless=catchAsync(async(req,res,next)=>{
 
 })
 exports.getallproducts=catchAsync(async(req,res,next)=>{
-    let a=true
     const allprod=await products.find().populate({path:'variations'}).populate('vendor_id').populate('shop_address')
     res.status(200).json({
         status:'success',
         prod:allprod
     })
-    while(a)
-    {
-        consolee.log('aa')
-
-    
-    setTimeout(() => {
-        // runs after 2 seconds
-        const sumne= products.findById('664f568b72b0850540b426be')
-        console.log(sumne)
-        if(sumne.rating===4)
-            {
-                console.log(sumne.rating)
-            }
-            else
-            {
-                a=false
-            }
-        
-      }, 2000);
-    }
+   
 })
