@@ -18,6 +18,7 @@ router.route('/cart/alterqty/:id').post(userController.protect,userController.in
 router.route('/cart/carticonclick').post(userController.protect,userController.carticonclick)
 // Orders
 router.route('/orders').post(userController.protect,userController.addOrder)
+router.route('/userorder').post(userController.protect,userController.orderproductfortheuser)
 //Address
 router.route('/address').post(userController.protect,userController.storeaddress)
 router.route('/productsorder').post(userController.protect,userController.productsorder)
