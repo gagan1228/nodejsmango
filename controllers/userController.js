@@ -602,20 +602,21 @@ function change(orderid){
                         
                          let array1=extractids(resp)
                          let array2=extractids(order.dp_can_or_ntaccpt)
-                         
-                       console.log(makedp(array1,array2))
-                       // console.log(idsofdpartners)
                         
-                     //  console.log(idsofdpartners.length)
-                      // var k=idsofdpartners.length>0?idsofdpartners:resp
-                       // console.log(k)
+                       console.log(makedp(array1,array2))
+                       var idsofdpartners=makedp(array1,array2)
+                       console.log(idsofdpartners)
+                        
+                      console.log(idsofdpartners.length)
+                      var k=idsofdpartners.length>0?idsofdpartners:resp
+                       console.log(k)
                        
-                      //  let x = Math.floor((Math.random() * k.length) )//(include 0 and exclude 6)
-                     //   console.log(`Next assigned dp ${k[x]._id}`)
-                       // updateOrder(orderid,k[x]._id).then(respo=>{ // problem random ;ine allide
-                           // console.log('ki')
+                       let x = Math.floor((Math.random() * k.length) )//(include 0 and exclude 6)
+                       console.log(`Next assigned dp ${k[x]._id}`)
+                       updateOrder(orderid,k[x]._id).then(respo=>{ // problem random ;ine allide
+                           console.log('ki')
     
-                      //  })
+                       })
     
 
                     })
@@ -631,7 +632,7 @@ function change(orderid){
             
             
          });
-        
+         
        
             // let result=findResult(orderid)
             // console.log(result)
@@ -668,28 +669,27 @@ function change(orderid){
 }
 exports.addOrder=catchAsync(async(req,res,next)=>{
    
-   // console.log(c)
-   // const jsonn=JSON.stringify(c)
-   // console.log(jsonn)
-    f=req.body
-    f.user_id=req.user.id
-    const dpartners=await dpartner.find({active:true},{ongoing_delivery:false})
-   // console.log(dpartners.length)
-    let x = Math.floor((Math.random() * dpartner.length) )//(include 0 and exclude 6)
-   // console.log(x)
-    req.d_partner_id=dpartners[x]
-    //console.log(Date.now()+4*60*1000-Date.now())
-    const neworder=await orders.create(f)
-    await dpartner.findByIdAndUpdate(neworder.d_partner_id,{ongoing_delivery:true})//make it false after order completion
-    change(neworder._id)
-    console.log(`1st assigned dp ${neworder.d_partner_id}`)
-    res.status(200).json({
-        newOrder:neworder,
-        msg:'Order has been placed'
-    })
+//    console.log(c)
+//    const jsonn=JSON.stringify(c)
+//    console.log(jsonn)
+//     console.log("hello")
+//     f=req.body
+//     f.user_id=req.user.id
+//     const dpartners=await dpartner.find({active:true},{ongoing_delivery:false})
+//    // console.log(dpartners.length)
+//     let x = Math.floor((Math.random() * dpartner.length) )//(include 0 and exclude 6)
+//    // console.log(x)
+//     req.d_partner_id=dpartners[x]
+//     //console.log(Date.now()+4*60*1000-Date.now())
+//     const neworder=await orders.create(f)
+//     await dpartner.findByIdAndUpdate(neworder.d_partner_id,{ongoing_delivery:true})//make it false after order completion
+//     change(neworder._id)
+//     console.log(`1st assigned dp ${neworder.d_partner_id}`)
+//     res.status(200).json({
+//         newOrder:neworder,
+//         msg:'Order has been placed'
+//     })
     
-
-
 
     
     // setTimeout(()=>{
@@ -967,4 +967,23 @@ exports.getallproducts=catchAsync(async(req,res,next)=>{
         prod:allprod
     })
    
+})
+exports.orderproductfortheuser=catchAsync(async(req,res,next)=>{
+          f=req.body
+        f.user_id=req.user.id
+        const dpartners=await dpartner.find({active:true},{ongoing_delivery:false})
+       // console.log(dpartners.length)
+        let x = Math.floor((Math.random() * dpartner.length) )//(include 0 and exclude 6)
+       // console.log(x)
+        req.d_partner_id=dpartners[x]
+        //console.log(Date.now()+4*60*1000-Date.now())
+        const neworder=await orders.create(f)
+        await dpartner.findByIdAndUpdate(neworder.d_partner_id,{ongoing_delivery:true})//make it false after order completion
+        change(neworder._id)
+        console.log(`1st assigned dp ${neworder.d_partner_id}`)
+        res.status(200).json({
+            newOrder:neworder,
+            msg:'Order has been placed'
+        })
+    
 })
